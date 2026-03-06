@@ -159,10 +159,10 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center">
+      <section className="relative pt-40 pb-32 overflow-hidden flex justify-center h-[500px] items-center">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
-          <div className="text-center mb-12 sm:mb-16">
-            <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
+          <div className="text-center mb-25 sm:mb-16">
+            <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase">
               Capabilities
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
@@ -170,7 +170,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {[
               {
                 icon: Shield,
@@ -202,11 +202,9 @@ export default function HomePage() {
                   <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
                     <Icon size={20} className="text-white" />
                   </div>
-                  <div>
-                    <span className="px-3 py-1 text-[11px] font-mono text-white/30 tracking-widest border border-white/10 rounded-md">
-                      {tag}
-                    </span>
-                  </div>
+                  <span className="px-3 py-1 text-xs font-mono text-white/30 tracking-wide border border-white/10 rounded-md">
+                    {tag}
+                  </span>
                 </div>
                 <div>
                   <div className="text-3xl sm:text-4xl font-black text-white mb-1">{stat}</div>
@@ -223,14 +221,14 @@ export default function HomePage() {
       <section className="py-20 sm:py-28 relative overflow-hidden w-full flex flex-col items-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.015] to-black pointer-events-none" />
         <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center flex flex-col items-center sm:mb-16 ">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Workflow
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
               How It Works
             </h2>
-            <p className="text-white/35 max-w-md mx-auto text-sm sm:text-base">
+            <p className="text-white/35 mx-auto text-sm sm:text-base">
               Three simple steps from raw scan to segmented tumor mask.
             </p>
           </div>
@@ -273,8 +271,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TECH STACK ── */}
-      <section className="py-16 sm:py-20 bg-black border-t border-white/5 w-full flex flex-col items-center">
+      {/* TECH STACK */}
+      <section className="py-16 sm:py-20 bg-black border-t border-white/5 w-full flex flex-col items-center mt-20 mb-24">
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 sm:mb-12">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
@@ -307,8 +305,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ── */}
-      <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center">
+      {/* CTA BANNER */}
+      <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center mt-10">
         <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="glass-strong rounded-3xl p-8 sm:p-12 gradient-border relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
