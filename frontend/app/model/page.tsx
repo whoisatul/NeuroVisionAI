@@ -69,10 +69,10 @@ const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?:
 /* ── Section header helper ── */
 function SectionHeader({ tag, title, sub }: { tag: string; title: string; sub?: string }) {
     return (
-        <div className="mb-8 sm:mb-10 text-center flex flex-col items-center">
+        <div className="mb-8 sm:mb-10">
             <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase mb-2">{tag}</p>
             <h2 className="text-xl sm:text-2xl font-bold text-white">{title}</h2>
-            {sub && <p className="text-white/40 text-sm mt-2 max-w-xl mx-auto">{sub}</p>}
+            {sub && <p className="text-white/35 text-sm mt-1">{sub}</p>}
         </div>
     );
 }
@@ -82,20 +82,21 @@ export default function ModelPage() {
     const [activeChart, setActiveChart] = useState<"loss" | "dice">("loss");
 
     return (
-        <div className="min-h-screen bg-black pt-[9rem] sm:pt-[10rem] pb-[4rem] w-full flex flex-col items-center">
+        <div className="min-h-screen bg-black pt-20 sm:pt-24 pb-16 w-full flex flex-col items-center">
             <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
 
                 {/* Page Header */}
-                <div className="text-center pt-4 sm:pt-6 flex flex-col items-center justify-center w-full">
+                <div className="text-center pt-4 sm:pt-6">
                     <span className="status-badge mb-4 inline-flex">
                         <div className="neon-dot" />
                         Architecture · Training · Benchmarks
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mt-[1rem] mb-[1rem] tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 mb-3">
                         About the Model
                     </h1>
-                    <p className="text-white/35 max-w-2xl mx-auto text-center text-sm sm:text-base leading-relaxed">
-                        A deep dive into the U-Net architecture, training methodology, and benchmark results for NeuroVisionAI.
+                    <p className="text-white/35 max-w-lg mx-auto text-sm sm:text-base">
+                        A deep dive into the U-Net architecture, training methodology, and
+                        benchmark results for NeuroVisionAI.
                     </p>
                 </div>
 
@@ -105,55 +106,55 @@ export default function ModelPage() {
 
                     <div className="glass-strong rounded-2xl p-5 sm:p-6 border border-white/8">
                         {/* Legend */}
-                        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10 bg-white/5 border border-white/5 rounded-xl py-2.5 px-5 max-w-fit mx-auto">
+                        <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-6 sm:mb-8">
                             {Object.entries(typeLabels).map(([type, label]) => (
-                                <div key={type} className="flex items-center gap-2">
+                                <div key={type} className="flex items-center gap-1.5">
                                     <div className={`w-2.5 h-2.5 rounded-sm border ${typeColors[type]}`} />
-                                    <span className="text-white/50 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em]">{label}</span>
+                                    <span className="text-white/35 text-xs">{label}</span>
                                 </div>
                             ))}
                         </div>
 
                         {/* Layer grid */}
-                        <div className="flex flex-wrap gap-4 sm:gap-5 justify-center mt-6">
+                        <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
                             {unetLayers.map((layer) => (
                                 <button
                                     key={layer.id}
                                     onClick={() => setSelectedLayer(selectedLayer?.id === layer.id ? null : layer)}
-                                    className={`relative flex flex-col items-center justify-center gap-1.5 px-4 sm:px-5 py-3 sm:py-4 rounded-xl border transition-all duration-200 text-center
+                                    className={`relative flex flex-col items-center gap-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border transition-all duration-200 text-center
                     ${typeColors[layer.type]}
                     ${selectedLayer?.id === layer.id
                                             ? "ring-2 ring-white/35 scale-105 shadow-[0_0_20px_rgba(255,255,255,0.08)]"
                                             : "hover:border-white/25 hover:scale-[1.02]"
                                         }
                   `}
-                                    style={{ minWidth: 105, maxWidth: 150 }}
+                                    style={{ minWidth: 90, maxWidth: 130 }}
                                 >
                                     {layer.type === "bottleneck" && (
-                                        <span className="absolute -top-[1.1rem] left-1/2 -translate-x-1/2 text-[10px] font-black text-white bg-[#1a1a1a] px-2.5 py-0.5 rounded-full border border-white/25 whitespace-nowrap shadow-md z-10">
+                                        <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-white bg-white/12 px-2 py-0.5 rounded-full border border-white/15 whitespace-nowrap">
                                             Bottleneck
                                         </span>
                                     )}
-                                    <span className="text-white text-[13px] sm:text-[14px] font-bold leading-tight mt-0.5">{layer.label}</span>
-                                    <span className="text-white/50 text-[10px] sm:text-[11px] font-mono leading-none">{layer.size}</span>
-                                    <span className="text-white/30 text-[9px] uppercase tracking-wide font-semibold mt-1.5">{typeLabels[layer.type]}</span>
+                                    <span className="text-white text-xs sm:text-sm font-semibold leading-tight">{layer.label}</span>
+                                    <span className="text-white/35 text-[9px] sm:text-xs font-mono">{layer.size}</span>
+                                    <span className="text-white/20 text-[9px] capitalize">{typeLabels[layer.type]}</span>
                                 </button>
                             ))}
                         </div>
 
                         {/* Detail panel */}
                         {selectedLayer && (
-                            <div className="mt-8 sm:mt-10 p-5 sm:p-6 rounded-xl border border-white/10 bg-white/4 animate-fade-in-up max-w-3xl mx-auto flex flex-col items-center text-center">
-                                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-3">
-                                    <h4 className="text-white font-bold text-base sm:text-lg">{selectedLayer.label}</h4>
-                                    <span className="text-white/30 font-mono text-xs sm:text-sm px-3 bg-white/5 border border-white/5 rounded py-0.5">{selectedLayer.size}</span>
-                                    <span className={`text-[10px] sm:text-xs px-2.5 py-1 rounded-md border shrink-0 ${typeColors[selectedLayer.type]}`}>
+                            <div className="mt-5 sm:mt-6 p-4 sm:p-5 rounded-xl border border-white/10 bg-white/4 animate-fade-in-up">
+                                <div className="flex items-start justify-between gap-3 mb-2">
+                                    <div>
+                                        <h4 className="text-white font-bold text-sm sm:text-base">{selectedLayer.label}</h4>
+                                        <span className="text-white/30 font-mono text-xs">{selectedLayer.size}</span>
+                                    </div>
+                                    <span className={`text-[10px] sm:text-xs px-2 py-1 rounded-md border shrink-0 ${typeColors[selectedLayer.type]}`}>
                                         {typeLabels[selectedLayer.type]}
                                     </span>
                                 </div>
-                                <p className="text-white/50 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
-                                    {selectedLayer.desc}
-                                </p>
+                                <p className="text-white/45 text-xs sm:text-sm leading-relaxed">{selectedLayer.desc}</p>
                             </div>
                         )}
                     </div>
@@ -165,12 +166,12 @@ export default function ModelPage() {
 
                     <div className="glass-strong rounded-2xl p-5 sm:p-6 border border-white/8">
                         {/* Toggle */}
-                        <div className="flex justify-center gap-3 mb-8 sm:mb-10">
+                        <div className="flex gap-2 mb-6 sm:mb-8">
                             {(["loss", "dice"] as const).map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveChart(tab)}
-                                    className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide transition-all ${activeChart === tab ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.4)] scale-105" : "text-white/40 hover:text-white border border-white/10 hover:border-white/20 bg-black/50"
+                                    className={`px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium capitalize transition-all ${activeChart === tab ? "bg-white text-black" : "text-white/40 hover:text-white border border-white/10 hover:border-white/20"
                                         }`}
                                 >
                                     {tab === "loss" ? "Loss" : "Dice Score"}

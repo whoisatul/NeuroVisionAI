@@ -159,9 +159,9 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="relative pt-[10rem] pb-[8rem] overflow-hidden flex justify-center items-center flex-col md:flex-row">
+      <section className="relative pt-40 pb-32 overflow-hidden flex justify-center h-[500px] items-center">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
-          <div className="text-center mb-[2.5rem] sm:mb-[4rem]">
+          <div className="text-center mb-25 sm:mb-16">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase">
               Capabilities
             </p>
@@ -170,7 +170,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-[5rem] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1.5rem] ">
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {[
               {
                 icon: Shield,
@@ -218,10 +218,10 @@ export default function HomePage() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="py-[5rem] sm:py-[7rem] relative overflow-hidden w-full flex flex-col items-center">
+      <section className="py-20 sm:py-28 relative overflow-hidden w-full flex flex-col items-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.015] to-black pointer-events-none" />
         <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center flex flex-col items-center mb-[2.5rem] sm:mb-[4rem]">
+          <div className="text-center flex flex-col items-center sm:mb-16 ">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Workflow
             </p>
@@ -233,7 +233,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[2rem] sm:gap-[1.5rem]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
             {[
               {
                 step: "1",
@@ -255,15 +255,15 @@ export default function HomePage() {
               },
             ].map(({ step, icon: Icon, title, desc }) => (
               <div key={step} className="flex flex-col items-center text-center group">
-                <div className="relative mb-[1.25rem]">
-                  <div className="w-[5rem] h-[5rem] sm:w-[6rem] sm:h-[6rem] rounded-full glass border border-white/10 flex items-center justify-center group-hover:border-white/25 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.06)]">
+                <div className="relative mb-5">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full glass border border-white/10 flex items-center justify-center group-hover:border-white/25 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.06)]">
                     <Icon size={26} className="text-white/60 group-hover:text-white transition-colors" />
                   </div>
-                  <span className="absolute -top-1 -right-1 w-[1.5rem] h-[1.5rem] rounded-full bg-white text-black text-xs font-black flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white text-black text-xs font-black flex items-center justify-center">
                     {step}
                   </span>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-white mb-[0.5rem]">{title}</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2">{title}</h3>
                 <p className="text-sm text-white/35 leading-relaxed max-w-[240px]">{desc}</p>
               </div>
             ))}
@@ -272,16 +272,16 @@ export default function HomePage() {
       </section>
 
       {/* TECH STACK */}
-      <section className="py-[4rem] sm:py-[5rem] bg-black border-t border-white/5 w-full flex flex-col items-center mt-[5rem] mb-[6rem]">
+      <section className="py-16 sm:py-20 bg-black border-t border-white/5 w-full flex flex-col items-center mt-20 mb-24">
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-[2.5rem] sm:mb-[3rem]">
-            <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-[0.75rem]">
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Built With
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-white">Tech Stack</h2>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
             {[
               { name: "TensorFlow", desc: "2.x / Keras" },
               { name: "U-Net", desc: "Architecture" },
@@ -294,11 +294,11 @@ export default function HomePage() {
             ].map(({ name, desc }) => (
               <div
                 key={name}
-                className="flex items-center gap-2.5 glass px-5 py-3 rounded-xl card-hover cursor-default group"
+                className="flex items-center gap-2 glass px-4 py-2.5 rounded-xl card-hover cursor-default group"
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
-                <span className="text-sm sm:text-base font-semibold text-white">{name}</span>
-                <span className="text-xs text-white/30">{desc}</span>
+                <span className="text-sm font-semibold text-white">{name}</span>
+                <span className="text-xs text-white/25">{desc}</span>
               </div>
             ))}
           </div>
@@ -306,9 +306,9 @@ export default function HomePage() {
       </section>
 
       {/* CTA BANNER */}
-      <section className="py-[5rem] sm:py-[7rem] bg-black w-full flex flex-col items-center mt-[2.5rem]">
+      <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center mt-10">
         <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-strong rounded-3xl p-[2rem] sm:p-[3rem] gradient-border relative overflow-hidden">
+          <div className="glass-strong rounded-3xl p-8 sm:p-12 gradient-border relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
             <Layers size={36} className="text-white/15 mx-auto mb-5" />
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">

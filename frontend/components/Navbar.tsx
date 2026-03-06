@@ -25,7 +25,7 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-5 inset-x-4 max-w-7xl mx-auto z-50 transition-all duration-500 rounded-2xl ${scrolled
+            className={`fixed top-5 left-20 right-4 z-50 transition-all duration-500 rounded-2xl ${scrolled
                 ? "glass border border-white/5 py-3"
                 : "bg-black/60 backdrop-blur-md py-4"
                 }`}

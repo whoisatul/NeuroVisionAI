@@ -170,19 +170,19 @@ export default function ResearchPage() {
     const currentPost = posts.find((p) => p.id === activePost);
 
     return (
-        <div className="min-h-screen bg-black pt-[9rem] sm:pt-[10rem] pb-[4rem] w-full flex flex-col items-center">
-            <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
+        <div className="min-h-screen bg-black pt-20 sm:pt-24 pb-16 w-full flex flex-col items-center">
+            <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
 
                 {/* Page Header */}
-                <div className="text-center pt-4 sm:pt-6 flex flex-col items-center justify-center w-full">
+                <div className="text-center pt-4 sm:pt-6">
                     <span className="status-badge mb-4 inline-flex">
                         <div className="neon-dot" />
                         Research · Methodology · Publications
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mt-[1rem] mb-[1rem] tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 mb-3">
                         Research &amp; Blog
                     </h1>
-                    <p className="text-white/35 max-w-2xl mx-auto text-center text-sm sm:text-base leading-relaxed">
+                    <p className="text-white/35 max-w-md mx-auto text-sm sm:text-base">
                         Deep dives into the methodology, training decisions, and science
                         behind NeuroVisionAI.
                     </p>
@@ -219,11 +219,8 @@ export default function ResearchPage() {
                     </div>
                 ) : (
                     <section>
-                        <div className="flex flex-col items-center mb-8">
-                            <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase text-center">Blog Posts</p>
-                            <div className="h-px w-12 bg-white/10 mt-3" />
-                        </div>
-                        <div className="space-y-4 sm:space-y-6">
+                        <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase mb-5">Blog Posts</p>
+                        <div className="space-y-3 sm:space-y-4">
                             {posts.map((post) => (
                                 <button
                                     key={post.id}
@@ -256,11 +253,8 @@ export default function ResearchPage() {
 
                 {/* Papers */}
                 <section>
-                    <div className="flex flex-col items-center mb-8">
-                        <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase text-center">Key References</p>
-                        <div className="h-px w-12 bg-white/10 mt-3" />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase mb-5">Key References</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {papers.map((paper) => (
                             <a
                                 key={paper.title}
