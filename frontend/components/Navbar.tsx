@@ -25,8 +25,8 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? "glass border-b border-white/5 py-3"
+            className={`fixed top-5 left-20 right-4 z-50 transition-all duration-500 rounded-2xl ${scrolled
+                ? "glass border border-white/5 py-3"
                 : "bg-black/60 backdrop-blur-md py-4"
                 }`}
         >
@@ -37,7 +37,6 @@ export default function Navbar() {
                         <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-shadow duration-300">
                             <Brain size={16} className="text-black" />
                         </div>
-                        <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-white neon-dot" />
                     </div>
                     <span className="text-white font-bold text-base tracking-tight whitespace-nowrap">
                         NeuroVisionAI
@@ -45,7 +44,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Links — centered */}
-                <div className="hidden md:flex items-center gap-1">
+                <div className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => {
                         const isActive =
                             link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -53,9 +52,9 @@ export default function Navbar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
-                                    ? "text-white bg-white/10 border border-white/10"
-                                    : "text-white/50 hover:text-white hover:bg-white/5"
+                                className={`inline-flex items-center justify-center h-8 w-15 px-4 rounded-xs text-sm font-medium leading-none transition-all duration-200 whitespace-nowrap border ${isActive
+                                    ? "text-white bg-white/10 border-white/10"
+                                    : "text-white/50 hover:text-white hover:bg-white/5 border-transparent"
                                     }`}
                             >
                                 {link.label}
@@ -75,7 +74,7 @@ export default function Navbar() {
                         GitHub
                     </a>
                     <Link href="/demo">
-                        <button className="btn-primary px-4 py-2 rounded-lg text-sm whitespace-nowrap">
+                        <button className="btn-primary rounded-lg text-sm whitespace-nowrap">
                             Try Demo →
                         </button>
                     </Link>

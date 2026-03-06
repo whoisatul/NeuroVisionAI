@@ -89,13 +89,13 @@ export default function HomePage() {
     <div className="min-h-screen bg-black">
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex justify-center overflow-hidden items-center">
         <AnimatedBrainBg />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 pb-16">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 pb-16 flex flex-col items-center gap-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white/50 tracking-wider uppercase">
+          <div className="inline-flex items-center justify-center gap-2 h-8 w-80 rounded-full border border-white/10 bg-white/10 text-xs font-medium text-white/50 tracking-wider uppercase">
             <div className="neon-dot" />
             Deep Learning · U-Net · BraTS 2021
           </div>
@@ -106,11 +106,11 @@ export default function HomePage() {
             <br />
             Brain Tumor Detection
             <br />
-            <span className="text-white/35">in Seconds</span>
+            <span className="text-white/35 text-7xl">In Seconds</span>
           </h1>
 
           {/* Sub */}
-          <p className="max-w-xl mx-auto text-base sm:text-lg text-white/45 leading-relaxed mb-10">
+          <p className="text-base sm:text-lg text-white/45 leading-relaxed mb-10">
             Upload a FLAIR MRI scan. Our U-Net model, trained on{" "}
             <span className="text-white/70">1,251 real patient cases</span>{" "}
             from BraTS 2021, segments the tumor region at pixel level with{" "}
@@ -118,14 +118,14 @@ export default function HomePage() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-14">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/demo">
-              <button className="btn-primary flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm sm:text-base w-full sm:w-auto justify-center">
+              <button className="btn-primary flex items-center gap-2 px-5 py-2 rounded-xl text-sm sm:text-base w-full sm:w-auto justify-center">
                 Try Demo <ArrowRight size={16} />
               </button>
             </Link>
             <Link href="/model">
-              <button className="btn-secondary flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm sm:text-base w-full sm:w-auto justify-center">
+              <button className="btn-secondary flex items-center gap-2 px-5 py-2 text-base sm:text-base w-full sm:w-auto justify-center">
                 <Brain size={16} />
                 Explore the Model
               </button>
@@ -133,7 +133,7 @@ export default function HomePage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-sm mx-auto">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 mx-auto">
             {[
               { val: 93, suffix: ".57%", label: "Dice Accuracy" },
               { val: 1251, suffix: "", label: "Patient Cases" },
@@ -160,7 +160,7 @@ export default function HomePage() {
 
       {/* ── FEATURES ── */}
       <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center">
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="text-center mb-12 sm:mb-16">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Capabilities
@@ -174,7 +174,7 @@ export default function HomePage() {
             {[
               {
                 icon: Shield,
-                stat: "93.5%",
+                stat: "93.57%",
                 label: "Dice Accuracy",
                 desc: "Validated on the BraTS 2021 test set. State-of-the-art pixel-wise overlap with ground-truth tumor annotations.",
                 tag: "Accuracy",
@@ -202,9 +202,11 @@ export default function HomePage() {
                   <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
                     <Icon size={20} className="text-white" />
                   </div>
-                  <span className="text-[10px] font-mono text-white/30 tracking-widest border border-white/10 px-2 py-1 rounded-md">
-                    {tag}
-                  </span>
+                  <div>
+                    <span className="px-3 py-1 text-[11px] font-mono text-white/30 tracking-widest border border-white/10 rounded-md">
+                      {tag}
+                    </span>
+                  </div>
                 </div>
                 <div>
                   <div className="text-3xl sm:text-4xl font-black text-white mb-1">{stat}</div>
