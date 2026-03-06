@@ -291,9 +291,10 @@ body {
     font-weight: 500;
     letter-spacing: 0.04em;
     transition: all 0.2s ease;
-    position:relative;
+    position: relative;
     overflow: hidden;
-    padding: 5px 10px;   /* controls width */
+    padding: 5px 10px;
+    /* controls width */
     border-radius: 10px;
     display: inline-flex;
     align-items: center;
@@ -330,7 +331,8 @@ body {
     font-weight: 500;
     letter-spacing: 0.02em;
     transition: all 0.2s ease;
-    padding: 5px 10px;   /* controls width */
+    padding: 5px 10px;
+    /* controls width */
     border-radius: 1px;
     display: inline-flex;
     align-items: center;
@@ -484,4 +486,37 @@ body {
     background: #fff;
     box-shadow: 0 0 8px #fff, 0 0 16px rgba(255, 255, 255, 0.5);
     animation: blink 2s ease-in-out infinite;
+}
+
+/* ─── Emergency Layout Resets (Tailwind V4 Bypass) ─── */
+section,
+.min-h-screen>.w-full {
+    padding-top: max(2rem, var(--section-pt, 0px));
+    padding-bottom: max(1.5rem, var(--section-pb, 0px));
+}
+
+.pt-\[9rem\] {
+    padding-top: 6rem !important;
+}
+
+.pt-\[10rem\] {
+    padding-top: 7rem !important;
+}
+
+.py-\[5rem\] {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.py-\[7rem\] {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+.mt-\[5rem\] {
+    margin-top: 2.5rem !important;
+}
+
+.mb-\[6rem\] {
+    margin-bottom: 3rem !important;
 }
