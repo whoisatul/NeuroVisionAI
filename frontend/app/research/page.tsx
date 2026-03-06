@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ExternalLink, BookOpen, FileText, Calendar, Users, ArrowRight } from "lucide-react";
 
-/* ─── Blog Post content stored as plain strings ─── */
 const POST1_CONTENT = [
     "## Overview",
     "",
@@ -17,8 +16,7 @@ const POST1_CONTENT = [
     "",
     "The U-Net was originally designed for biomedical image segmentation in 2015 by Ronneberger et al. Its key innovation: **skip connections** that concatenate encoder feature maps directly to decoder layers, preserving spatial information that would otherwise be lost in the bottleneck.",
     "",
-    "> \"The architecture consists of a contracting path to capture context and a symmetric expanding path that enables precise localization.\"",
-    "> — *Ronneberger et al., 2015*",
+    "> \"The architecture consists of a contracting path to capture context and a symmetric expanding path that enables precise localization.\" — *Ronneberger et al., 2015*",
     "",
     "This is critical for medical imaging where precise boundary localization matters far more than just classifying the whole image.",
     "",
@@ -69,14 +67,14 @@ const POST1_CONTENT = [
     "- **Validation Dice**: 0.9041",
     "- **Final Val Loss**: 0.063",
     "",
-    "The model generalizes well with less than 3% gap between train and validation Dice — a good sign of no overfitting.",
+    "The model generalizes well — less than 3% gap between train and val Dice.",
     "",
     "## Key Takeaways",
     "",
-    "1. **FLAIR-only works** — FLAIR alone gave comparable results with simpler preprocessing.",
+    "1. **FLAIR-only works** — comparable results to multi-modality with simpler preprocessing.",
     "2. **Dice loss > crossentropy** for imbalanced segmentation tasks.",
-    "3. **Data augmentation** was critical — without it, val Dice dropped below 0.85.",
-    "4. **128×128 is sufficient** for fast inference without sacrificing much accuracy.",
+    "3. **Augmentation was critical** — without it, val Dice dropped below 0.85.",
+    "4. **128×128 is sufficient** for fast inference without sacrificing accuracy.",
 ].join("\n");
 
 const POST2_CONTENT = [
@@ -91,26 +89,22 @@ const POST2_CONTENT = [
     "- **1,251 patient cases** from multiple institutions worldwide",
     "- **4 MRI modalities per case**: T1, T1Gd (contrast-enhanced), T2, and FLAIR",
     "- **Voxel-level annotations** for three tumor sub-regions:",
-    "  - **WT** (Whole Tumor): Full tumor volume including edema",
-    "  - **TC** (Tumor Core): Necrotic core + enhancing tumor",
-    "  - **ET** (Enhancing Tumor): Active tumor cells (contrast-enhanced)",
+    "  - **WT** (Whole Tumor): full volume including edema",
+    "  - **TC** (Tumor Core): necrotic core + enhancing tumor",
+    "  - **ET** (Enhancing Tumor): active tumor cells",
     "",
     "## Why FLAIR Only?",
     "",
-    "We trained NeuroVisionAI on **FLAIR only** for several reasons:",
-    "",
     "### 1. Clinical Relevance",
-    "FLAIR (Fluid-Attenuated Inversion Recovery) suppresses CSF signal, making it the **most sensitive modality** for detecting peritumoral edema and whole-tumor extent.",
+    "FLAIR suppresses CSF signal, making it the **most sensitive modality** for detecting peritumoral edema and whole-tumor extent.",
     "",
     "### 2. Simplified Preprocessing",
-    "Using all 4 modalities requires registration, co-alignment, and 4× the data pipeline complexity. FLAIR alone reduces friction significantly.",
+    "Using all 4 modalities requires registration, co-alignment, and 4× the data pipeline complexity.",
     "",
     "### 3. Competitive Performance",
-    "FLAIR-only models achieve **Dice scores within 3–5% of full-modality ensembles** for whole tumor segmentation — an acceptable trade-off for a single-modality clinical tool.",
+    "FLAIR-only models achieve **Dice scores within 3–5% of full-modality ensembles** — an acceptable trade-off.",
     "",
-    "## Data Statistics We Used",
-    "",
-    "After converting from NIfTI to 2D PNG slices:",
+    "## Data Statistics",
     "",
     "| Split | Cases | 2D Slices |",
     "|---|---|---|",
@@ -121,17 +115,14 @@ const POST2_CONTENT = [
     "## Challenges",
     "",
     "- **Class imbalance**: Tumor pixels represent only 2–8% of each slice",
-    "- **Slice variability**: Some slices show no tumor at all (fully black background)",
+    "- **Slice variability**: Some slices show no tumor at all",
     "- **NIfTI format**: Requires nibabel library to convert 3D volumes to 2D slices",
-    "",
-    "We addressed imbalance with Dice loss and augmentation, and filtered out near-empty slices (tumor area < 50px²) during training.",
     "",
     "## Citation",
     "",
     "> Baid, U., et al. \"The RSNA-ASNR-MICCAI BraTS 2021 Benchmark on Brain Tumor Segmentation and Radiogenomic Classification.\" arXiv:2107.02314 (2021).",
 ].join("\n");
 
-/* ─── Blog Posts ─── */
 const posts = [
     {
         id: "unet-brain-segmentation",
@@ -139,8 +130,7 @@ const posts = [
         date: "March 2025",
         readTime: "8 min read",
         tags: ["Deep Learning", "U-Net", "Segmentation"],
-        excerpt:
-            "A technical walkthrough of our architecture choices, training pipeline, and the lessons learned building a pixel-level tumor segmentation model on BraTS 2021.",
+        excerpt: "A technical walkthrough of our architecture choices, training pipeline, and the lessons learned building a pixel-level tumor segmentation model on BraTS 2021.",
         content: POST1_CONTENT,
     },
     {
@@ -149,20 +139,18 @@ const posts = [
         date: "February 2025",
         readTime: "5 min read",
         tags: ["Dataset", "BraTS 2021", "Research"],
-        excerpt:
-            "An analysis of the BraTS 2021 dataset — 1,251 patient cases, 4 MRI modalities, and what makes it the gold standard for brain tumor segmentation benchmarks.",
+        excerpt: "An analysis of the BraTS 2021 dataset — 1,251 patient cases, 4 MRI modalities, and what makes it the gold standard for brain tumor segmentation benchmarks.",
         content: POST2_CONTENT,
     },
 ];
 
-/* ─── Paper cards ─── */
 const papers = [
     {
         title: "BraTS 2021: The RSNA-ASNR-MICCAI Brain Tumor Segmentation Challenge",
         authors: "Baid, U. et al.",
         year: "2021",
         venue: "arXiv:2107.02314",
-        desc: "Introduces the largest brain tumor segmentation benchmark to date with 1,251 multi-institutional cases and 4 MRI modalities.",
+        desc: "The largest brain tumor segmentation benchmark — 1,251 cases, 4 modalities, voxel-level annotations.",
         url: "https://arxiv.org/abs/2107.02314",
         tag: "Dataset Paper",
     },
@@ -171,7 +159,7 @@ const papers = [
         authors: "Ronneberger, O., Fischer, P., & Brox, T.",
         year: "2015",
         venue: "MICCAI 2015",
-        desc: "The seminal U-Net paper that introduced skip connections for biomedical segmentation. The architecture that powers NeuroVisionAI.",
+        desc: "The seminal U-Net paper introducing skip connections for biomedical segmentation. Architecture powering NeuroVisionAI.",
         url: "https://arxiv.org/abs/1505.04597",
         tag: "Architecture Paper",
     },
@@ -179,88 +167,82 @@ const papers = [
 
 export default function ResearchPage() {
     const [activePost, setActivePost] = useState<string | null>(null);
-
     const currentPost = posts.find((p) => p.id === activePost);
 
     return (
-        <div className="min-h-screen bg-black pt-24 pb-16 px-6">
-            <div className="max-w-4xl mx-auto space-y-16">
-                {/* Header */}
-                <div className="text-center">
+        <div className="min-h-screen bg-black pt-20 sm:pt-24 pb-16 w-full flex flex-col items-center">
+            <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+
+                {/* Page Header */}
+                <div className="text-center pt-4 sm:pt-6">
                     <span className="status-badge mb-4 inline-flex">
                         <div className="neon-dot" />
                         Research · Methodology · Publications
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-black text-white mt-4 mb-3">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 mb-3">
                         Research &amp; Blog
                     </h1>
-                    <p className="text-white/40 max-w-xl mx-auto">
+                    <p className="text-white/35 max-w-md mx-auto text-sm sm:text-base">
                         Deep dives into the methodology, training decisions, and science
                         behind NeuroVisionAI.
                     </p>
                 </div>
 
-                {/* ── Post reader or list ── */}
+                {/* Post reader or list */}
                 {currentPost ? (
                     <div>
                         <button
                             onClick={() => setActivePost(null)}
-                            className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm mb-8"
+                            className="flex items-center gap-2 text-white/35 hover:text-white transition-colors text-sm mb-6 sm:mb-8"
                         >
                             ← Back to all posts
                         </button>
-                        <article className="glass-strong rounded-2xl p-8 md:p-10 border border-white/8">
-                            {/* Meta */}
-                            <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <article className="glass-strong rounded-2xl p-6 sm:p-8 md:p-10 border border-white/8">
+                            <div className="flex flex-wrap gap-2 mb-4">
                                 {currentPost.tags.map((t: string) => (
-                                    <span key={t} className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md">
+                                    <span key={t} className="text-[10px] sm:text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md">
                                         {t}
                                     </span>
                                 ))}
                             </div>
-                            <h1 className="text-2xl md:text-3xl font-black text-white mb-3 leading-tight">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-3 leading-tight">
                                 {currentPost.title}
                             </h1>
-                            <div className="flex items-center gap-4 text-white/30 text-sm mb-8">
-                                <span className="flex items-center gap-1.5"><Calendar size={13} />{currentPost.date}</span>
-                                <span className="flex items-center gap-1.5"><BookOpen size={13} />{currentPost.readTime}</span>
+                            <div className="flex items-center gap-4 text-white/25 text-xs sm:text-sm mb-6 sm:mb-8">
+                                <span className="flex items-center gap-1.5"><Calendar size={12} />{currentPost.date}</span>
+                                <span className="flex items-center gap-1.5"><BookOpen size={12} />{currentPost.readTime}</span>
                             </div>
-                            {/* Markdown content */}
                             <div className="prose">
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                    {currentPost.content}
-                                </ReactMarkdown>
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>{currentPost.content}</ReactMarkdown>
                             </div>
                         </article>
                     </div>
                 ) : (
                     <section>
-                        <p className="text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-6">Blog Posts</p>
-                        <div className="space-y-4">
+                        <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase mb-5">Blog Posts</p>
+                        <div className="space-y-3 sm:space-y-4">
                             {posts.map((post) => (
                                 <button
                                     key={post.id}
                                     onClick={() => setActivePost(post.id)}
-                                    className="w-full text-left glass-strong rounded-2xl p-6 border border-white/8 card-hover group"
+                                    className="w-full text-left glass-strong rounded-2xl p-5 sm:p-6 border border-white/8 card-hover group"
                                 >
-                                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                                    <div className="flex flex-wrap gap-2 mb-3">
                                         {post.tags.map((t: string) => (
-                                            <span key={t} className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md">
+                                            <span key={t} className="text-[10px] sm:text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md">
                                                 {t}
                                             </span>
                                         ))}
                                     </div>
-                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-white transition-colors">
-                                        {post.title}
-                                    </h3>
-                                    <p className="text-white/40 text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-snug">{post.title}</h3>
+                                    <p className="text-white/35 text-xs sm:text-sm leading-relaxed mb-4">{post.excerpt}</p>
                                     <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-4 text-white/25 text-xs">
-                                            <span className="flex items-center gap-1.5"><Calendar size={11} />{post.date}</span>
-                                            <span className="flex items-center gap-1.5"><BookOpen size={11} />{post.readTime}</span>
+                                        <div className="flex items-center gap-3 sm:gap-4 text-white/20 text-xs">
+                                            <span className="flex items-center gap-1.5"><Calendar size={10} />{post.date}</span>
+                                            <span className="flex items-center gap-1.5"><BookOpen size={10} />{post.readTime}</span>
                                         </div>
-                                        <span className="flex items-center gap-1 text-white/40 group-hover:text-white text-sm transition-colors">
-                                            Read <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                        <span className="flex items-center gap-1 text-white/35 group-hover:text-white text-xs sm:text-sm transition-colors shrink-0">
+                                            Read <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                                         </span>
                                     </div>
                                 </button>
@@ -269,42 +251,35 @@ export default function ResearchPage() {
                     </section>
                 )}
 
-                {/* ── Papers ── */}
+                {/* Papers */}
                 <section>
-                    <p className="text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-6">Key References</p>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <p className="text-[10px] sm:text-xs font-mono text-white/25 tracking-[0.2em] uppercase mb-5">Key References</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {papers.map((paper) => (
                             <a
                                 key={paper.title}
                                 href={paper.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex flex-col glass-strong rounded-2xl p-6 border border-white/8 card-hover group"
+                                className="flex flex-col glass-strong rounded-2xl p-5 sm:p-6 border border-white/8 card-hover group"
                             >
                                 <div className="flex items-start justify-between gap-2 mb-3">
-                                    <span className="text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md">
+                                    <span className="text-[10px] sm:text-xs font-mono text-white/30 border border-white/10 px-2 py-0.5 rounded-md shrink-0">
                                         {paper.tag}
                                     </span>
-                                    <ExternalLink
-                                        size={14}
-                                        className="text-white/20 group-hover:text-white transition-colors shrink-0 mt-0.5"
-                                    />
+                                    <ExternalLink size={13} className="text-white/20 group-hover:text-white transition-colors shrink-0 mt-0.5" />
                                 </div>
-                                <h3 className="text-sm font-bold text-white mb-2 leading-snug group-hover:text-white transition-colors">
-                                    {paper.title}
-                                </h3>
-                                <p className="text-xs text-white/30 mb-3 leading-relaxed">{paper.desc}</p>
-                                <div className="mt-auto flex items-center justify-between text-xs text-white/25">
-                                    <span className="flex items-center gap-1.5"><Users size={11} />{paper.authors}</span>
-                                    <span className="flex items-center gap-1.5">
-                                        <FileText size={11} />
-                                        {paper.venue} · {paper.year}
-                                    </span>
+                                <h3 className="text-xs sm:text-sm font-bold text-white mb-2 leading-snug">{paper.title}</h3>
+                                <p className="text-[11px] sm:text-xs text-white/30 mb-3 leading-relaxed flex-1">{paper.desc}</p>
+                                <div className="flex items-center justify-between text-[10px] sm:text-xs text-white/20 flex-wrap gap-1">
+                                    <span className="flex items-center gap-1"><Users size={10} />{paper.authors}</span>
+                                    <span className="flex items-center gap-1"><FileText size={10} />{paper.venue} · {paper.year}</span>
                                 </div>
                             </a>
                         ))}
                     </div>
                 </section>
+
             </div>
         </div>
     );
