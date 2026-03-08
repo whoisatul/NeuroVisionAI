@@ -256,11 +256,11 @@ export default function DemoPage() {
     const handleReset = () => { setPhase("idle"); setFile(null); setResult(null); };
 
     return (
-        <div className="min-h-screen bg-black pt-20 sm:pt-24 pb-16 w-full flex flex-col items-center">
+        <div className="min-h-screen bg-black pt-20 sm:pt-24 pb-16 w-full flex flex-col items-center justify-center">
             <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Page header */}
-                <div className="text-center mb-8 sm:mb-12">
+                <div className="text-center flex flex-col items-center sm:mb-12">
                     <span className="status-badge mb-4 inline-flex">
                         <div className="neon-dot" />
                         Live Demo — Simulated Pipeline
@@ -312,7 +312,7 @@ export default function DemoPage() {
                             { title: "Processing Time", info: "~1.5–2s — FastAPI + Keras inference" },
                             { title: "Output", info: "Mask PNG + Dice Score + Tumor Area px²" },
                         ].map(({ title, info }) => (
-                            <div key={title} className="glass rounded-xl p-4 border border-white/8">
+                            <div key={title} className="glass p-5 rounded-xl border border-white/8">
                                 <p className="text-white/50 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-1">{title}</p>
                                 <p className="text-white/35 text-xs sm:text-sm">{info}</p>
                             </div>
