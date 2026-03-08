@@ -21,8 +21,6 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html {
@@ -75,7 +73,7 @@ body {
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 14px;
+    /* REMOVED: padding: 14px; so Tailwind p-* classes actually work! */
 }
 
 .glow-text {
@@ -291,12 +289,13 @@ body {
     font-weight: 500;
     letter-spacing: 0.04em;
     transition: all 0.2s ease;
-    position:relative;
+    position: relative;
     overflow: hidden;
-    padding: 5px 10px;   /* controls width */
+    padding: 12px 24px; /* Fixed: Giving the button room to breathe */
     border-radius: 10px;
     display: inline-flex;
     align-items: center;
+    justify-content: center; /* Fixed: Centers text and icon */
     gap: 6px;
 }
 
@@ -330,10 +329,11 @@ body {
     font-weight: 500;
     letter-spacing: 0.02em;
     transition: all 0.2s ease;
-    padding: 5px 10px;   /* controls width */
-    border-radius: 1px;
+    padding: 12px 24px; /* Fixed */
+    border-radius: 8px; /* Slightly rounded to match your UI better */
     display: inline-flex;
     align-items: center;
+    justify-content: center; /* Fixed */
     gap: 6px;
 }
 
@@ -352,7 +352,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 12px;
+    padding: 6px 16px; /* Fixed: Slightly more vertical room */
     border-radius: 999px;
     font-size: 12px;
     font-weight: 500;
@@ -360,7 +360,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.04);
 }
-
 /* ─── Recharts overrides ─── */
 .recharts-tooltip-wrapper {
     outline: none !important;

@@ -25,18 +25,16 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-5 left-20 right-4 z-50 transition-all duration-500 rounded-2xl ${scrolled
+            className={`fixed top-4 left-6 right-6 z-50 transition-all duration-500 rounded-2xl ${scrolled
                 ? "glass border border-white/5 py-3"
                 : "bg-black/60 backdrop-blur-md py-4"
                 }`}
         >
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+            <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group shrink-0">
-                    <div className="relative">
-                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-shadow duration-300">
-                            <Brain size={16} className="text-black" />
-                        </div>
+                <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-shadow duration-300">
+                        <Brain size={16} className="text-black" />
                     </div>
                     <span className="text-white font-bold text-base tracking-tight whitespace-nowrap">
                         NeuroVisionAI
@@ -44,7 +42,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Links — centered */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-6">
                     {navLinks.map((link) => {
                         const isActive =
                             link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -52,7 +50,7 @@ export default function Navbar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`inline-flex items-center justify-center h-8 w-15 px-4 rounded-xs text-sm font-medium leading-none transition-all duration-200 whitespace-nowrap border ${isActive
+                                className={`inline-flex items-center justify-center px-4 py-2 rounded-s text-m font-medium leading-none transition-all duration-200 whitespace-nowrap border ${isActive
                                     ? "text-white bg-white/10 border-white/10"
                                     : "text-white/50 hover:text-white hover:bg-white/5 border-transparent"
                                     }`}
@@ -64,7 +62,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Right side */}
-                <div className="hidden md:flex items-center gap-3 shrink-0">
+                <div className="hidden md:flex items-center gap-4 shrink-0">
                     <a
                         href="https://github.com"
                         target="_blank"
@@ -73,10 +71,8 @@ export default function Navbar() {
                     >
                         GitHub
                     </a>
-                    <Link href="/demo">
-                        <button className="btn-primary rounded-lg text-sm whitespace-nowrap">
-                            Try Demo →
-                        </button>
+                    <Link href="/demo" className="btn-primary text-sm">
+                        Try Demo →
                     </Link>
                 </div>
 
@@ -92,7 +88,7 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             {menuOpen && (
-                <div className="md:hidden border-t border-white/5 bg-black/90 backdrop-blur-md px-4 py-4 space-y-1">
+                <div className="md:hidden border-t border-white/5 bg-black/90 backdrop-blur-md px-4 py-4 space-y-1 mt-3">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -107,10 +103,8 @@ export default function Navbar() {
                         </Link>
                     ))}
                     <div className="pt-3 border-t border-white/5">
-                        <Link href="/demo" onClick={() => setMenuOpen(false)}>
-                            <button className="btn-primary w-full px-4 py-2.5 rounded-lg text-sm">
-                                Try Demo →
-                            </button>
+                        <Link href="/demo" onClick={() => setMenuOpen(false)} className="btn-primary w-full text-sm justify-center">
+                            Try Demo →
                         </Link>
                     </div>
                 </div>

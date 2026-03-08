@@ -93,9 +93,9 @@ export default function HomePage() {
         <AnimatedBrainBg />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 pb-16 flex flex-col items-center gap-6">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-20">
           {/* Badge */}
-          <div className="inline-flex items-center justify-center gap-2 h-8 w-80 rounded-full border border-white/10 bg-white/10 text-xs font-medium text-white/50 tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white/50 tracking-wider uppercase">
             <div className="neon-dot" />
             Deep Learning · U-Net · BraTS 2021
           </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
           </h1>
 
           {/* Sub */}
-          <p className="text-base sm:text-lg text-white/45 leading-relaxed mb-10">
+          <p className="max-w-xl mx-auto text-base sm:text-lg text-white/45 leading-relaxed mb-10">
             Upload a FLAIR MRI scan. Our U-Net model, trained on{" "}
             <span className="text-white/70">1,251 real patient cases</span>{" "}
             from BraTS 2021, segments the tumor region at pixel level with{" "}
@@ -118,22 +118,18 @@ export default function HomePage() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/demo">
-              <button className="btn-primary flex items-center gap-2 px-5 py-2 rounded-xl text-sm sm:text-base w-full sm:w-auto justify-center">
-                Try Demo <ArrowRight size={16} />
-              </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <Link href="/demo" className="btn-primary w-full sm:w-auto">
+              Try Demo <ArrowRight size={16} />
             </Link>
-            <Link href="/model">
-              <button className="btn-secondary flex items-center gap-2 px-5 py-2 text-base sm:text-base w-full sm:w-auto justify-center">
-                <Brain size={16} />
-                Explore the Model
-              </button>
+            <Link href="/model" className="btn-secondary w-full sm:w-auto">
+              <Brain size={16} />
+              Explore the Model
             </Link>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 mx-auto">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-sm mx-auto">
             {[
               { val: 93, suffix: ".57%", label: "Dice Accuracy" },
               { val: 1251, suffix: "", label: "Patient Cases" },
@@ -170,7 +166,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+          <div className="mt-15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {[
               {
                 icon: Shield,
@@ -218,14 +214,14 @@ export default function HomePage() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="py-20 sm:py-28 relative overflow-hidden w-full flex flex-col items-center">
+      <section className="py-24 sm:py-36 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-white/[0.015] to-black pointer-events-none" />
-        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center flex flex-col items-center sm:mb-16 ">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Workflow
             </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
               How It Works
             </h2>
             <p className="text-white/35 mx-auto text-sm sm:text-base">
@@ -255,7 +251,7 @@ export default function HomePage() {
               },
             ].map(({ step, icon: Icon, title, desc }) => (
               <div key={step} className="flex flex-col items-center text-center group">
-                <div className="relative mb-5">
+                <div className="relative mb-4">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full glass border border-white/10 flex items-center justify-center group-hover:border-white/25 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.06)]">
                     <Icon size={26} className="text-white/60 group-hover:text-white transition-colors" />
                   </div>
@@ -272,9 +268,9 @@ export default function HomePage() {
       </section>
 
       {/* TECH STACK */}
-      <section className="py-16 sm:py-20 bg-black border-t border-white/5 w-full flex flex-col items-center mt-20 mb-24">
-        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 sm:mb-12">
+      <section className="py-6 sm:py-8 bg-black border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-5 sm:mb-12">
             <p className="text-[10px] sm:text-xs font-mono text-white/30 tracking-[0.2em] uppercase mb-3">
               Built With
             </p>
@@ -306,8 +302,8 @@ export default function HomePage() {
       </section>
 
       {/* CTA BANNER */}
-      <section className="py-20 sm:py-28 bg-black w-full flex flex-col items-center mt-10">
-        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-24 sm:py-36 bg-black">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="glass-strong rounded-3xl p-8 sm:p-12 gradient-border relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
             <Layers size={36} className="text-white/15 mx-auto mb-5" />
@@ -318,10 +314,8 @@ export default function HomePage() {
               Upload your MRI scan and get a pixel-level tumor segmentation mask
               in under 2 seconds — no setup required.
             </p>
-            <Link href="/demo">
-              <button className="btn-primary px-8 py-3.5 rounded-xl text-sm sm:text-base inline-flex items-center gap-2">
-                Launch Demo <ArrowRight size={16} />
-              </button>
+            <Link href="/demo" className="btn-primary">
+              Launch Demo <ArrowRight size={16} />
             </Link>
           </div>
         </div>
