@@ -25,50 +25,51 @@ const STATUS_MESSAGES: Record<Phase, string> = {
     error: "An error occurred. Please try again.",
 };
 
-function generateMockResult(file: File) {
-    return new Promise<{ originalUrl: string; maskUrl: string; metrics: { dice: number; area: number; confidence: number } }>((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const originalUrl = reader.result as string;
-            const canvas = document.createElement("canvas");
-            const img = new Image();
-            img.onload = () => {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext("2d")!;
-                ctx.drawImage(img, 0, 0);
-                const cx = img.width / 2;
-                const cy = img.height / 2;
-                const r = Math.min(img.width, img.height) * 0.2;
-                const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-                grd.addColorStop(0, "rgba(255,60,0,0.75)");
-                grd.addColorStop(0.6, "rgba(255,120,0,0.45)");
-                grd.addColorStop(1, "rgba(255,100,0,0)");
-                ctx.fillStyle = grd;
-                ctx.beginPath();
-                ctx.ellipse(cx, cy, r * 1.1, r * 0.85, Math.PI / 6, 0, 2 * Math.PI);
-                ctx.fill();
-                resolve({
-                    originalUrl,
-                    maskUrl: canvas.toDataURL("image/png"),
-                    metrics: { dice: 93.57, area: Math.floor(Math.random() * 3000) + 800, confidence: 94 + Math.random() * 4 },
-                });
-            };
-            img.src = originalUrl;
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
 async function runPipeline(file: File, setPhase: (p: Phase) => void) {
-    setPhase("uploading"); await new Promise((r) => setTimeout(r, 700));
-    setPhase("preprocessing"); await new Promise((r) => setTimeout(r, 900));
-    setPhase("segmenting"); await new Promise((r) => setTimeout(r, 1100));
-    setPhase("rendering");
-    const result = await generateMockResult(file);
-    await new Promise((r) => setTimeout(r, 500));
-    setPhase("done");
-    return result;
+    setPhase("uploading");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const isNifti = file.name.endsWith(".nii") || file.name.endsWith(".nii.gz");
+    const endpoint = isNifti ? "/predict/nifti" : "/predict";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+    try {
+        setPhase("preprocessing");
+        const response = await fetch(`${apiUrl}${endpoint}`, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.statusText}`);
+        }
+
+        setPhase("segmenting");
+        const data = await response.json();
+
+        setPhase("rendering");
+
+        const originalUrl = `data:image/png;base64,${data.original_b64}`;
+        const maskUrl = `data:image/png;base64,${data.mask_b64}`;
+        const overlayUrl = `data:image/png;base64,${data.overlay_b64}`;
+
+        setPhase("done");
+        return {
+            originalUrl,
+            maskUrl,
+            overlayUrl,
+            metrics: {
+                dice: 93.57, // Model validation dice score
+                area: data.metrics.tumor_pixels,
+                confidence: data.metrics.confidence_pct,
+            }
+        };
+    } catch (error) {
+        console.error("Pipeline error:", error);
+        throw error;
+    }
 }
 
 /* ─── Dropzone ─── */
@@ -150,9 +151,9 @@ function Spinner({ phase }: { phase: Phase }) {
 
 /* ─── Results ─── */
 function ResultsView({
-    originalUrl, maskUrl, metrics, filename, onReset,
+    originalUrl, maskUrl, overlayUrl, metrics, filename, onReset,
 }: {
-    originalUrl: string; maskUrl: string;
+    originalUrl: string; maskUrl: string; overlayUrl: string;
     metrics: { dice: number; area: number; confidence: number };
     filename: string; onReset: () => void;
 }) {
@@ -183,7 +184,7 @@ function ResultsView({
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {[
                     { label: "Original MRI", url: originalUrl, tag: "INPUT" },
-                    { label: showOverlay ? "Tumor Mask Overlay" : "Binary Mask", url: maskUrl, tag: "OUTPUT" },
+                    { label: showOverlay ? "Tumor Mask Overlay" : "Binary Mask", url: showOverlay ? overlayUrl : maskUrl, tag: "OUTPUT" },
                 ].map(({ label, url, tag }) => (
                     <div key={tag} className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -243,7 +244,7 @@ function ResultsView({
 export default function DemoPage() {
     const [phase, setPhase] = useState<Phase>("idle");
     const [file, setFile] = useState<File | null>(null);
-    const [result, setResult] = useState<{ originalUrl: string; maskUrl: string; metrics: { dice: number; area: number; confidence: number } } | null>(null);
+    const [result, setResult] = useState<{ originalUrl: string; maskUrl: string; overlayUrl: string; metrics: { dice: number; area: number; confidence: number } } | null>(null);
 
     const handleFile = async (f: File) => {
         setFile(f); setPhase("uploading");
@@ -286,6 +287,7 @@ export default function DemoPage() {
                         <ResultsView
                             originalUrl={result.originalUrl}
                             maskUrl={result.maskUrl}
+                            overlayUrl={result.overlayUrl}
                             metrics={result.metrics}
                             filename={file.name}
                             onReset={handleReset}
