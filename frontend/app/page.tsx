@@ -114,7 +114,7 @@ export default function HomePage() {
             Upload a FLAIR MRI scan. Our U-Net model, trained on{" "}
             <span className="text-white/70">1,251 real patient cases</span>{" "}
             from BraTS 2021, segments the tumor region at pixel level with{" "}
-            <span className="text-white font-semibold">93.57% Dice accuracy</span>.
+            <span className="text-white font-semibold">93.74% Dice accuracy</span>.
           </p>
 
           {/* CTAs */}
@@ -131,9 +131,9 @@ export default function HomePage() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-sm mx-auto">
             {[
-              { val: 93, suffix: ".57%", label: "Dice Accuracy" },
+              { val: 93, suffix: ".74%", label: "Dice Accuracy" },
               { val: 1251, suffix: "", label: "Patient Cases" },
-              { val: 48577, suffix: "", label: "MRI Slices" },
+              { val: 48627, suffix: "", label: "MRI Slices" },
             ].map(({ val, suffix, label }) => (
               <div key={label} className="text-center">
                 <div className="text-xl sm:text-2xl font-black text-white font-mono">
