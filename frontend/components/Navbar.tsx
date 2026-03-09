@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Brain, Menu, X } from "lucide-react";
+import { Brain, Menu, X,Github } from "lucide-react";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -63,14 +63,15 @@ export default function Navbar() {
 
                 {/* Right side */}
                 <div className="hidden md:flex items-center gap-4 shrink-0">
-                    <a
-                        href="https://github.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/40 hover:text-white transition-colors text-sm whitespace-nowrap"
-                    >
-                        GitHub
-                    </a>
+                     <a
+              href="https://github.com/whoisatul/NeuroVisionAI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-white/30 hover:text-white transition-colors text-sm"
+            >
+              <Github size={16} />
+              GitHub
+            </a>
                     <Link href="/demo" className="btn-primary text-sm">
                         Try Demo →
                     </Link>

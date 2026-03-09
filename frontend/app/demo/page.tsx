@@ -61,7 +61,7 @@ async function runPipeline(file: File, setPhase: (p: Phase) => void) {
             maskUrl,
             overlayUrl,
             metrics: {
-                dice: 93.57, // Model validation dice score
+                dice: 93.74, // Model validation dice score
                 area: data.metrics.tumor_pixels,
                 confidence: data.metrics.confidence_pct,
             }

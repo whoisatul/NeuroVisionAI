@@ -344,7 +344,7 @@ export default function HomePage() {
 
             {/* GitHub */}
             <a
-              href="https://github.com"
+              href="https://github.com/whoisatul/NeuroVisionAI"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/30 hover:text-white transition-colors text-sm"
@@ -355,8 +355,8 @@ export default function HomePage() {
           </div>
 
           <div className="mt-7 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/20">
-            <span>© 2025 NeuroVisionAI. For research purposes only.</span>
-            <span className="font-mono">U-Net · BraTS 2021 · 93.57% Dice</span>
+            <span>© 2026 Hrikshesh kumar. For research purposes only.</span>
+            <span className="font-mono">U-Net · BraTS 2021 · 93.74% Dice</span>
           </div>
         </div>
       </footer>
