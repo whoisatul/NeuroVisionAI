@@ -1,4 +1,4 @@
-<h1>🧠 NeuroVisionAI</h1>
+<h1 align='center'> NeuroVisionAI : Brain Tumor Segmentation Architecture</h1>
 
 NeuroVisionAI is an advanced web application designed for **Brain Tumor Segmentation** using state-of-the-art Deep Learning. By identifying exactly which pixels belong to a tumor region in MRI sequences, it assists in measuring tumor volume, tracking progression, and planning treatment.
 
