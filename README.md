@@ -7,7 +7,7 @@ NeuroVisionAI is an advanced web application designed for **Brain Tumor Segmenta
 ## 🔍 Overview
 This project implements a highly optimized **U-Net neural network** trained on the BraTS 2021 dataset. The model analyzes FLAIR MRI data to generate highly precise binary masks of brain tumors. We coupled this deep learning backend with a robust Next.js frontend, creating a seamless, interactive tool for visualizing predictions in real-time.
 <div align="center">
-    <img src="/frontend/public/neurovision_system_design.svg" alt="Logo" width="200" height="200">
+    <img src="/frontend/public/neurovision_system_design.svg" alt="Logo" width="1000" height="1000">
 </div>
 ---
 
