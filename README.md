@@ -94,3 +94,4 @@ After 30 Epochs trained on 2x Tesla T4 GPUs, the model achieves a blistering Val
 ---
 
 ⭐ If you found this project informative, consider dropping a star!
+Developed by **Hrikshesh Kumar** at **IIIT Vadodara** **
