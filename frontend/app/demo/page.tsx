@@ -33,7 +33,7 @@ async function runPipeline(file: File, setPhase: (p: Phase) => void) {
 
     const isNifti = file.name.endsWith(".nii") || file.name.endsWith(".nii.gz");
     const endpoint = isNifti ? "/predict/nifti" : "/predict";
-    const apiUrl = "http://localhost:8000";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     try {
         setPhase("preprocessing");
