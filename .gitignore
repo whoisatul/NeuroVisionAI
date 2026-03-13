@@ -26,16 +26,6 @@ env/
 .env.local
 .env.*.local
 
-# ── ML Models (too large for git — use Git LFS or cloud storage) ──────────────
-*.keras
-*.h5
-*.pt
-*.pth
-*.onnx
-*.pb
-*.tflite
-backend/model/
-
 # ── Jupyter Notebooks checkpoints ────────────────────────────────────────────
 .ipynb_checkpoints/
 *.ipynb
