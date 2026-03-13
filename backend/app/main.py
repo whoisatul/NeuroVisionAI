@@ -5,22 +5,11 @@ from contextlib import asynccontextmanager
 
 import numpy as np
 import tensorflow as tf
+import tf_keras
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-
-
-
-
-from preprocess.preprocess import (
-    load_image_from_bytes,
-    load_nifti_middle_slice,
-    preprocess_for_model,
-    array_to_base64_png,
-    build_overlay,
-    compute_metrics,
-)
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -31,6 +20,15 @@ logger = logging.getLogger(__name__)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "model", "Neuvision_model.keras")
 sys.path.append(BASE_DIR)
+
+from preprocess.preprocess import (
+    load_image_from_bytes,
+    load_nifti_middle_slice,
+    preprocess_for_model,
+    array_to_base64_png,
+    build_overlay,
+    compute_metrics,
+)
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
@@ -62,18 +60,23 @@ def bce_dice_loss(y_true, y_pred):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global model
-    logger.info("🚀 NeuVision API starting...")
-    logger.info(f"   Model path: {MODEL_PATH}")
+    try:
+        logger.info("🚀 NeuVision API starting...")
+        logger.info(f"   Model path: {MODEL_PATH}")
+        logger.info(f"   File exists: {os.path.exists(MODEL_PATH)}")
 
-    model = tf.keras.models.load_model(
-        MODEL_PATH,
-        custom_objects={
-            "bce_dice_loss": bce_dice_loss,
-            "dice_coef":     dice_coef,
-            "dice_loss":     dice_loss,
-        }
-    )
-    logger.info(f"🧠 Model loaded — {model.count_params():,} parameters")
+        model = tf_keras.models.load_model(
+            MODEL_PATH,
+            custom_objects={
+                "bce_dice_loss": bce_dice_loss,
+                "dice_coef":     dice_coef,
+                "dice_loss":     dice_loss,
+            }
+        )
+        logger.info(f"🧠 Model loaded — {model.count_params():,} parameters")
+    except Exception as e:
+        logger.error(f"❌ Startup failed: {e}")
+        raise
     yield
     logger.info("🛑 Shutting down.")
 
@@ -101,9 +104,9 @@ app.add_middleware(
 def _infer(raw_img: np.ndarray) -> dict:
     import cv2
 
-    model_input  = preprocess_for_model(raw_img)          # (1, 128, 128, 1)
-    prob_mask    = model.predict(model_input, verbose=0)   # (1, 128, 128, 1)
-    prob_mask    = prob_mask[0, :, :, 0]                   # (128, 128)
+    model_input  = preprocess_for_model(raw_img)
+    prob_mask    = model.predict(model_input, verbose=0)
+    prob_mask    = prob_mask[0, :, :, 0]
 
     display      = cv2.resize(raw_img.astype(np.float32), (128, 128))
     d_min, d_max = display.min(), display.max()
@@ -128,8 +131,8 @@ def root():
 def health():
     return {
         "status":       "ok" if model else "degraded",
-        "input_shape":  list(model.input_shape[1:])  if model else None,
-        "total_params": model.count_params()          if model else None,
+        "input_shape":  list(model.input_shape[1:]) if model else None,
+        "total_params": model.count_params()         if model else None,
         "val_dice":     0.9357,
     }
 
