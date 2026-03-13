@@ -1,12 +1,12 @@
 fastapi==0.135.1
 uvicorn[standard]==0.41.0
-tensorflow==2.16.2
+tensorflow-cpu==2.15.0
 numpy==1.26.4
 pillow==12.1.1
 python-multipart==0.0.22
 nibabel==5.4.0
 opencv-python-headless==4.13.0.92
-scikit-learn==1.8.0
+scikit-learn==1.5.2
 scipy==1.17.1
 python-dotenv==1.2.2
 pydantic==2.12.5
