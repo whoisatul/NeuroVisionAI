@@ -17,6 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, "model", "Neuvision_model.keras")
 sys.path.append(BASE_DIR)
 
 from preprocess.preprocess import (
@@ -54,32 +55,30 @@ def bce_dice_loss(y_true, y_pred):
 
 
 # ── Startup — load model once ─────────────────────────────────────────────────
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global model
     try:
         logger.info("🚀 NeuVision API starting...")
-        
-        CONFIG_PATH  = os.path.join(BASE_DIR, "model", "model_config.json")
-        WEIGHTS_PATH = os.path.join(BASE_DIR, "model", "model_weights.weights.h5")
-        
-        logger.info(f"   Config exists: {os.path.exists(CONFIG_PATH)}")
-        logger.info(f"   Weights exist: {os.path.exists(WEIGHTS_PATH)}")
+        logger.info(f"   Model path: {MODEL_PATH}")
+        logger.info(f"   File exists: {os.path.exists(MODEL_PATH)}")
 
-        with open(CONFIG_PATH) as f:
-            model_json = f.read()
-
-        model = tf.keras.models.model_from_json(
-            model_json,
-            custom_objects={"bce_dice_loss": bce_dice_loss, "dice_coef": dice_coef, "dice_loss": dice_loss}
+        model = tf.keras.models.load_model(
+            MODEL_PATH,
+            custom_objects={
+                "bce_dice_loss": bce_dice_loss,
+                "dice_coef":     dice_coef,
+                "dice_loss":     dice_loss,
+            }
         )
-        model.load_weights(WEIGHTS_PATH)
         logger.info(f"🧠 Model loaded — {model.count_params():,} parameters")
     except Exception as e:
         logger.error(f"❌ Startup failed: {e}")
         raise
     yield
     logger.info("🛑 Shutting down.")
+
 
 # ── App ───────────────────────────────────────────────────────────────────────
 
