@@ -2,7 +2,7 @@
 
 NeuroVisionAI is an advanced web application designed for **Brain Tumor Segmentation** using state-of-the-art Deep Learning. By identifying exactly which pixels belong to a tumor region in MRI sequences, it assists in measuring tumor volume, tracking progression, and planning treatment.
 
-<h3>Deployed link - </h3>
+<h3>Deployed link - https://neuro-vision-ai-1.vercel.app</h3>
 
 ## 🔍 Overview
 This project implements a highly optimized **U-Net neural network** trained on the BraTS 2021 dataset. The model analyzes FLAIR MRI data to generate highly precise binary masks of brain tumors. We coupled this deep learning backend with a robust Next.js frontend, creating a seamless, interactive tool for visualizing predictions in real-time.
