@@ -5,7 +5,6 @@ from contextlib import asynccontextmanager
 
 import numpy as np
 import tensorflow as tf
-import tf_keras
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_PATH = os.path.join(BASE_DIR, "model", "Neuvision_model.keras")
+MODEL_PATH = os.path.join(BASE_DIR, "model", "Neuvision_model.h5")
 sys.path.append(BASE_DIR)
 
 from preprocess.preprocess import (
@@ -36,7 +35,7 @@ ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",
 model = None
 
 
-# ── Custom loss & metric (required to load the .keras file) ──────────────────
+# ── Custom loss & metric (required to load the model) ────────────────────────
 
 def dice_coef(y_true, y_pred, smooth=1e-6):
     y_true = tf.cast(tf.reshape(y_true, [tf.shape(y_true)[0], -1]), tf.float32)
@@ -65,7 +64,7 @@ async def lifespan(app: FastAPI):
         logger.info(f"   Model path: {MODEL_PATH}")
         logger.info(f"   File exists: {os.path.exists(MODEL_PATH)}")
 
-        model = tf_keras.models.load_model(
+        model = tf.keras.models.load_model(
             MODEL_PATH,
             custom_objects={
                 "bce_dice_loss": bce_dice_loss,
