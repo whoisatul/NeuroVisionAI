@@ -186,3 +186,7 @@ async def predict_nifti(
         raise HTTPException(status_code=422, detail=f"Cannot read NIfTI: {e}")
 
     return JSONResponse(content=_infer(raw))
+
+@app.get("/health")
+def health():
+    return {"status": "alive"}    
